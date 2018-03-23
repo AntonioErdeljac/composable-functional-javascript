@@ -101,6 +101,43 @@ const getPort = () =>
   .fold(e => 3000,
         c => c.port)
 
-const result = getPort();
+// const result = getPort();
 
-console.log(result);
+const Sum = x =>
+({
+  x,
+  concat: ({ x: y }) =>
+    Sum(x + y),
+  inspect: () =>
+    `Sum(${x})`
+});
+
+const All = x =>
+({
+  x,
+  concat: ({ x: y }) =>
+    All(x && y),
+  inspect: () =>
+    `All(${x})`
+});
+
+const First = x =>
+({
+  x,
+  concat: _ =>
+    First(x),
+  inspect: () =>
+    `First(${x})`
+})
+
+
+const res = "a".concat("b".concat("c"));
+const resArr = [1,2].concat([3,4].concat([5,6]));
+
+const resNew = Sum(1).concat(Sum(2)).concat(Sum(3));
+
+const resAll = All(true).concat(All(true));
+
+const resFirst = First('test').concat(First('pop'));
+
+console.log(resFirst);
