@@ -95,6 +95,8 @@ const tryCatch = f => {
 //   }
 // };
 
+const { Map } = require('immutable-ext');
+
 const getPort = () =>
   tryCatch(() => fs.readFileSync('config.json'))
   .chain(c => tryCatch(() => JSON.parse(c)))
@@ -140,4 +142,7 @@ const resAll = All(true).concat(All(true));
 
 const resFirst = First('test').concat(First('pop'));
 
-console.log(resFirst);
+const acc1 = Map({ name: First('Nico'), isPaid: All(true), points: Sum(10), friends: ['Franklin']})
+const acc2 = Map({ name: First('Nico'), isPaid: All(false), points: Sum(10), friends: ['Gatsby']})
+
+console.log((acc1.concat(acc2)).toJS());
